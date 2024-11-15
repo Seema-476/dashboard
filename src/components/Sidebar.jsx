@@ -6,6 +6,7 @@ import Events from './Events'
 import Programmes from './Programmes'
 import OnDemand from './OnDemand'
 import { useState } from 'react'
+import Welcome from './Welcome'
 
 const Sidebar = () => {
     const [openNav, setOpenNav] = useState(false);
@@ -18,17 +19,21 @@ const Sidebar = () => {
   
     const handleClick = (event) => {
         setActive(event.target.id);
+        setOpenNav(false);
+    };
+    const handleBacklayClick = () => {
+        setOpenNav(false);
     };
 
     return (
         <div id="tab-1" className={`flex bg-gray w-full relative ${active === 'tab-1' ? 'active' : ''}`}>
-            <div className={`absolute w-full h-full bg-black opacity-50 duration-700 md:hidden ${openNav ? '' : 'hidden'}`}></div>
-            <div className='w-6 h-5 md:hidden z-20 flex-col max-lg:flex gap-1 fixed left-2 top-3' onClick={toggleMenu}>
-                <span className='w-6 h-1 bg-yellow shadow-xl shadow-black'></span>
-                <span className='w-6 h-1 bg-yellow'></span>
-                <span className='w-6 h-1 bg-yellow'></span>
+            <div className={`absolute w-full h-full bg-black opacity-50 duration-700 md:hidden z-30 ${openNav ? '' : 'hidden'}`} onClick={handleBacklayClick}></div>
+            <div className='w-6 h-5 md:hidden flex-col max-lg:flex gap-1 fixed left-2 top-3 z-40' onClick={toggleMenu}>
+                <span className='w-6 h-1 bg-yellow drop-shadow-[2px_2px_1px_black]'></span>
+                <span className='w-6 h-1 bg-yellow drop-shadow-[2px_2px_1px_black]'></span>
+                <span className='w-6 h-1 bg-yellow drop-shadow-[2px_2px_1px_black]'></span>
             </div>
-            <div className={`h-screen max-w-[240px] w-full bg-black flex flex-col justify-between max-md:fixed duration-700 ${openNav ? 'left-0' : 'left-[-100%]'}`}>
+            <div className={`h-screen max-w-[240px] w-full bg-black flex flex-col justify-between max-md:fixed z-30 duration-700 ${openNav ? 'left-0' : 'left-[-100%]'}`}>
                 <div onClick={handleClick}>
                     <div className='flex items-center justify-center pt-11 pb-[62px]'>
                         <img src={dashBoardLogo} alt="logo" className='w-[184px]' />
@@ -51,17 +56,18 @@ const Sidebar = () => {
                         <p className='font-normal text-sm text-white whitespace-nowrap'>Zareh Geertjes</p>
                     </div>
                 </div>
-            </div>
-            <div className='w-full max-lg:h-screen overflow-y-scroll'>
-                <div className='flex max-lg:flex-wrap w-full gap-4 px-8'>
-                    {active === 'tab-2' && <Events active={active} />}
-                    {active === 'tab-4' && <Programmes />}
-                    {active === 'tab-1' && <><Events active={active} /> <Programmes /></>}
+            </div>           
+                <div className='w-full h-screen max-lg:overflow-y-scroll'>
+                    <Welcome />
+                    <div className='flex max-lg:flex-wrap w-full gap-4 px-8 relative z-20'>
+                        {active === 'tab-2' && <Events active={active} />}
+                        {active === 'tab-4' && <Programmes />}
+                        {active === 'tab-1' && <><Events active={active} /> <Programmes /></>}
+                    </div>
+                    <div className='w-full ps-8'> {active === 'tab-3' && <OnDemand />}
+                        {active === 'tab-1' && <OnDemand />}
+                    </div>
                 </div>
-                <div className='w-full ps-8'> {active === 'tab-3' && <OnDemand />}
-                    {active === 'tab-1' && <OnDemand />}
-                </div>
-            </div>
         </div>
     )
 }

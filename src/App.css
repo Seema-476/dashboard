@@ -1,9 +1,6 @@
 body{
     font-family: 'inter',sans-serif;
 }
-/* .sidebar-items-svg:active span svg circle{
-    fill: yellow !important;
+.tab-items{
+    height: calc(100vh - 240px);
 }
-.sidebar-items-svg:active span svg path{
-fill: yellow !important;
-} */

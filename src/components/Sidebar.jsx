@@ -15,6 +15,7 @@ const Sidebar = () => {
         setOpenNav(!openNav)
     }
 
+  
     const handleClick = (event) => {
         setActive(event.target.id);
     };
